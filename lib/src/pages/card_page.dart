@@ -17,6 +17,25 @@ class CardPage extends StatelessWidget {
             height: 30.0,
           ),
           _cardTipo2(),
+          const SizedBox(
+            height: 30.0,
+          ),
+          _cardTipo1(),
+          const SizedBox(
+            height: 30.0,
+          ),
+          _cardTipo2(),
+          const SizedBox(
+            height: 30.0,
+          ),
+          _cardTipo1(),
+          const SizedBox(
+            height: 30.0,
+          ),
+          _cardTipo2(),
+          const SizedBox(
+            height: 30.0,
+          ),
         ],
       ),
     );
@@ -24,6 +43,8 @@ class CardPage extends StatelessWidget {
 
   Widget _cardTipo1() {
     return Card(
+      elevation: 4.0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       child: Column(children: <Widget>[
         const ListTile(
           title: Text('Soy un título'),
@@ -40,7 +61,7 @@ class CardPage extends StatelessWidget {
   }
 
   _cardTipo2() {
-    return Card(
+    final card = Container(
       child: Column(
         children: [
           // esta imagen primero no aparece y luego sale de golpe, queremos suavizarlo
@@ -60,6 +81,23 @@ class CardPage extends StatelessWidget {
             child: const Text('Esto es un texto'),
           )
         ],
+      ),
+    );
+
+    // se crea un container en lugar de retornar directamente la Card para poder moldearla y evitar que la imagen no respete los border radius de la tarjeta
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20.0),
+        boxShadow: const <BoxShadow>[
+          BoxShadow(
+              color: Colors.black26, blurRadius: 6.0, offset: Offset(0.0, 4.0))
+        ],
+      ),
+      // ClipRRect recorta lo que esté por fuera
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20.0),
+        child: card,
       ),
     );
   }
