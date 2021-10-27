@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:flutter_componentes/src/pages/alert_page.dart';
 import 'package:flutter_componentes/src/routes/routes.dart';
@@ -13,6 +14,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', 'US'), // English, no country code
+        Locale('es', 'ES'), // Spanish, no country code
+      ],
       //home: HomePage(),
       initialRoute: '/',
       // si son pocas rutas, podemos incluirlas aquí
