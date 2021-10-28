@@ -44,16 +44,31 @@ class _ListviewPageState extends State<ListviewPage> {
   }
 
   Widget _crearList() {
-    return ListView.builder(
-      controller: _scrollController,
-      itemCount: _listaNumeros.length,
-      itemBuilder: (BuildContext context, int index) {
-        final imagen = _listaNumeros[index];
-        return FadeInImage(
-            placeholder: const AssetImage('assets/jar-loading.gif'),
-            image: NetworkImage('https://picsum.photos/400/?image=$imagen'));
-      },
+    return RefreshIndicator(
+      onRefresh: _obtenerPaginaInicial,
+      child: ListView.builder(
+        controller: _scrollController,
+        itemCount: _listaNumeros.length,
+        itemBuilder: (BuildContext context, int index) {
+          final imagen = _listaNumeros[index];
+          return FadeInImage(
+              placeholder: const AssetImage('assets/jar-loading.gif'),
+              image: NetworkImage('https://picsum.photos/400/?image=$imagen'));
+        },
+      ),
     );
+  }
+
+  Future<void> _obtenerPaginaInicial() async {
+    const duration = Duration(seconds: 2);
+
+    Timer(duration, () {
+      _listaNumeros.clear();
+      _ultimoItem++;
+      _agregarImagenes();
+    });
+
+    return Future.delayed(duration);
   }
 
   void _agregarImagenes() {
@@ -82,7 +97,8 @@ class _ListviewPageState extends State<ListviewPage> {
     });
 
     _scrollController.animateTo(_scrollController.position.pixels + 300,
-        duration: Duration(milliseconds: 200), curve: Curves.fastOutSlowIn);
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.fastOutSlowIn);
   }
 
   Widget _crearLoading() {
